@@ -1,15 +1,13 @@
 package prueba.products.Entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
+import jakarta.persistence.*;
 
 import java.util.Arrays;
 import java.util.Objects;
 
 @Entity
+@Table(name = "products")
 public class Product {
 
     private @Id @GeneratedValue Long id;
@@ -20,13 +18,13 @@ public class Product {
     private Long productPrice;
 
     @Lob // Indicar que es un campo de gran tamaño
-    private byte[] image;
+    private String image;
 
     public Product(){
 
     }
 
-    public Product(String productName, Long productPrice, byte[] image) {
+    public Product(String productName, Long productPrice, String image) {
         this.productName = productName;
         this.productPrice = productPrice;
         this.image = image;
@@ -57,18 +55,18 @@ public class Product {
         this.productPrice = productPrice;
     }
 
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
     // Comparar y comprobar que los objetos de la clase son identicos
     @Override
     public int hashCode(){
-        return Objects.hash(this.id, this.productName, this.productPrice, Arrays.hashCode(this.image));
+        return Objects.hash(this.id, this.productName, this.productPrice, this.image);
     }
 
     @Override
@@ -82,6 +80,6 @@ public class Product {
         return Objects.equals(this.id, product.id) &&
                 Objects.equals(this.productName, product.productName) &&
                 Objects.equals(this.productPrice, product.productPrice) &&
-                Arrays.equals(this.image, product.image);
+                Objects.equals(this.image, product.image);
     }
 }

@@ -1,13 +1,13 @@
 package prueba.products.Controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 import prueba.products.Entity.Product;
 import prueba.products.Repository.ProductRepository;
 
 import java.util.List;
 
+@CrossOrigin
+@RestController
 public class ProductController {
 
     private final ProductRepository repository;
