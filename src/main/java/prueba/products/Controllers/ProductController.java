@@ -3,6 +3,7 @@ package prueba.products.Controllers;
 import org.springframework.web.bind.annotation.*;
 import prueba.products.Entity.Product;
 import prueba.products.Repository.ProductRepository;
+import prueba.products.Services.MercadoPagoService;
 
 import java.util.List;
 
@@ -12,8 +13,12 @@ public class ProductController {
 
     private final ProductRepository repository;
 
-    public ProductController(ProductRepository repository){
+    private final MercadoPagoService mercadoPagoService;
+
+
+    public ProductController(MercadoPagoService mercadoPagoService, ProductRepository repository){
         this.repository = repository;
+        this.mercadoPagoService = mercadoPagoService;
     }
 
 
@@ -25,5 +30,10 @@ public class ProductController {
     @GetMapping("/product")
     public List<Product> all(){
         return repository.findAll();
+    }
+
+    @GetMapping("/crear-preferencia")
+    public String crearPreferencia() {
+        return mercadoPagoService.crearPreferencia();
     }
 }
