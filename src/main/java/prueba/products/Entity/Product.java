@@ -12,7 +12,6 @@ public class Product {
 
     private @Id @GeneratedValue Long id;
 
-
     private String productName;
 
     private Long productPrice;

@@ -1,24 +1,29 @@
 package prueba.products.Controllers;
 
+import com.mercadopago.exceptions.MPApiException;
+import com.mercadopago.exceptions.MPException;
+import com.mercadopago.resources.preference.Preference;
 import org.springframework.web.bind.annotation.*;
+import prueba.products.Dto.PreferenceDTO;
 import prueba.products.Entity.Product;
 import prueba.products.Repository.ProductRepository;
-import prueba.products.Services.MercadoPagoService;
+import prueba.products.Services.PaymentService;
 
+import java.lang.reflect.Array;
 import java.util.List;
 
-@CrossOrigin
+
 @RestController
 public class ProductController {
 
     private final ProductRepository repository;
 
-    private final MercadoPagoService mercadoPagoService;
+    private final PaymentService paymentService;
 
 
-    public ProductController(MercadoPagoService mercadoPagoService, ProductRepository repository){
+    public ProductController(PaymentService paymentService, ProductRepository repository){
         this.repository = repository;
-        this.mercadoPagoService = mercadoPagoService;
+        this.paymentService = paymentService;
     }
 
 
@@ -32,8 +37,17 @@ public class ProductController {
         return repository.findAll();
     }
 
-    @GetMapping("/crear-preferencia")
-    public String crearPreferencia() {
-        return mercadoPagoService.crearPreferencia();
+    @CrossOrigin
+    @PostMapping("/create-preference")
+    public Preference createPreference(@RequestBody PreferenceDTO preferenceDTO) throws MPException, MPApiException {
+        return paymentService.createPreference(
+                preferenceDTO.getTitle(),
+                preferenceDTO.getDescription(),
+                preferenceDTO.getPictureUrl(),
+                preferenceDTO.getCategoryId(),
+                preferenceDTO.getQuantity(),
+                preferenceDTO.getCurrencyId(),
+                preferenceDTO.getUnitPrice()
+        );
     }
 }
