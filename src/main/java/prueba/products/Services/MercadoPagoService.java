@@ -27,7 +27,7 @@ public class MercadoPagoService {
         Map<String, Object> item = new HashMap<>();
         item.put("title", "Producto de ejemplo");
         item.put("quantity", 1);
-        item.put("unit_price", 75.56);
+        item.put("unit_price", 75);
 
         Map<String, Object> preference = new HashMap<>();
         preference.put("items", new Object[]{item});
